@@ -16,4 +16,14 @@ public class TriangleTests {
     void canCaclculateArea() {
         Assertions.assertEquals(6.49519052838329, new Triangle(7.0, 5.0, 3.0).triangleArea());
     }
+
+    @Test
+    void cannotCreateTriangleWithNegativeLengthSide () {
+        try {
+            new Triangle(7.0, 5.0, 1.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // OK
+        }
+    }
 }
