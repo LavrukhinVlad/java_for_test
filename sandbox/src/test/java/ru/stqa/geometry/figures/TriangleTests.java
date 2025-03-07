@@ -35,13 +35,12 @@ public class TriangleTests {
     }
 
     @Test
-    void testEquality2() {
-        var a = 3;
-        var b = 4;
-        var c = 5;
+    void testEquality2(){
+        var a = 2;
+        var b = 3;
+        var c = 4;
         var t1 = new Triangle(a, b, c);
-        var t2 = new Triangle(b, c, a);
+        var t2 = new Triangle(b, a, c);
         Assertions.assertEquals(t1, t2);
     }
-
 }
