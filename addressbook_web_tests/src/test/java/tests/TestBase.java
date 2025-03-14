@@ -2,6 +2,7 @@ package tests;
 
 import manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 
 public class TestBase {
 
@@ -14,4 +15,5 @@ public class TestBase {
             app.init(System.getProperty("browser", "chrome"));
         }
     }
+
 }
