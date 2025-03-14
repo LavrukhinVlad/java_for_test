@@ -5,12 +5,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
+    private ContactHelper contact;
 
    public void init(String browser) {
         if (driver == null) {
@@ -19,7 +19,7 @@ public class ApplicationManager {
             } else if ("edge".equals(browser)) {
                 driver = new EdgeDriver();
             } else {
-                throw new IllegalArgumentException(String.format("Unknow browser %s", browser));
+                throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get("http:/localhost/addressbook/");
@@ -41,7 +41,14 @@ public class ApplicationManager {
         return groups;
     }
 
-    protected boolean isElementPresent(By locator) {
+    public ContactHelper contact() {
+        if (contact == null) {
+            contact = new ContactHelper(this);
+        }
+        return contact;
+    }
+
+     protected boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
@@ -49,5 +56,4 @@ public class ApplicationManager {
             return false;
         }
     }
-
 }
