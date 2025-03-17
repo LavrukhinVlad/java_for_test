@@ -88,11 +88,11 @@ public class ContactHelper extends HelperBase {
     }
 
     private void initContactModification() {
-        click(By.name("Edit"));
+        click(By.xpath("//img[@alt=\'Edit\']"));
     }
 
     private void selectContact() {
-        click(By.name("selected[]"));
+        click(By.xpath("//table[@id=\'maintable\']/tbody/tr[2]/td/input"));
     }
 
 }
