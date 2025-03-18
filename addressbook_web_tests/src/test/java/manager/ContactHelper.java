@@ -66,20 +66,20 @@ public class ContactHelper extends HelperBase {
     }
 
     private void fillContactForm(ContactData contact) {
-        type(By.name("firstname"), "first name");
-        type(By.name("middlename"), "middle name");
-        type(By.name("lastname"), "last name");
-        type(By.name("nickname"), "nickname");
-        type(By.name("title"), "title");
-        type(By.name("company"), "company");
-        type(By.name("address"), "address");
-        type(By.name("home"), "home");
-        type(By.name("mobile"), "mobile");
-        type(By.name("work"), "work");
-        type(By.name("fax"), "fax");
-        type(By.name("email"), "email");
-        type(By.name("email2"), "email2");
-        type(By.name("email3"), "email3");
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("middlename"), contact.middlename());
+        type(By.name("lastname"), contact.lastname());
+        type(By.name("nickname"), contact.nickname());
+        type(By.name("title"), contact.title());
+        type(By.name("company"), contact.company());
+        type(By.name("address"), contact.address());
+        type(By.name("home"), contact.home());
+        type(By.name("mobile"), contact.mobile());
+        type(By.name("work"), contact.work());
+        type(By.name("fax"), contact.fax());
+        type(By.name("email"), contact.email());
+        type(By.name("email2"), contact.email2());
+        type(By.name("email3"), contact.email3());
     }
 
     private void initContactModification() {
