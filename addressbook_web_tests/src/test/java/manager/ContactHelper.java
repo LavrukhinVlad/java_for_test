@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class ContactHelper extends HelperBase {
 
-    public  ContactHelper(ApplicationManager manager) {
+    public ContactHelper(ApplicationManager manager) {
         super(manager);
     }
 
@@ -19,11 +19,6 @@ public class ContactHelper extends HelperBase {
         if (!manager.isElementPresent(By.name("firstname"))) {
             click(By.linkText("home"));
         }
-    }
-
-    public boolean isContactPresent() {
-        openContactPage();
-        return manager.isElementPresent(By.name("selected[]"));
     }
 
     public void createContact(ContactData contact) {
@@ -58,11 +53,11 @@ public class ContactHelper extends HelperBase {
         click(By.name("firstname"));
     }
 
-    private void removeSelectedContact(){
+    private void removeSelectedContact() {
         click(By.name("delete"));
     }
 
-    private void returnToHomePage(){
+    private void returnToHomePage() {
         click(By.linkText("home page"));
     }
 
@@ -95,4 +90,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//table[@id=\'maintable\']/tbody/tr[2]/td/input"));
     }
 
+    public int getCount() {
+        openHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
 }
