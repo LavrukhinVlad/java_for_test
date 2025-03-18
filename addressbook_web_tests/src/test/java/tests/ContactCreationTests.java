@@ -24,4 +24,17 @@ public class ContactCreationTests extends TestBase {
         var contactWithName = emptyContact.withFirstname("some name");
         app.contact().createContact(new ContactData().withFirstname("some name"));
     }
+
+    @Test
+    public void CanCreateMultipleContacts() {
+        int n = 5;
+        int contactCount = app.contact().getCount();
+
+        for (int i = 0; i < n; i++) {
+            app.contact().createContact(new ContactData(randomString(i * 10), "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3"));
+        }
+
+        int newContactCount = app.contact().getCount();
+        Assertions.assertEquals(contactCount + n, newContactCount);
+    }
 }
