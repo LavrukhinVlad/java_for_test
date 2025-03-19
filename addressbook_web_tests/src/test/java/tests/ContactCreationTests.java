@@ -1,4 +1,5 @@
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,7 +19,6 @@ public class ContactCreationTests extends TestBase {
                         for (var title : List.of("", "title")) {
                             for (var company : List.of("", "company")) {
                                 for (var address : List.of("", "address")) {
-                                    for (var telephone : List.of("", "telephone")) {
                                         for (var home : List.of("", "home")) {
                                             for (var mobile : List.of("", "mobile")) {
                                                 for (var work : List.of("", "work")) {
@@ -26,7 +26,8 @@ public class ContactCreationTests extends TestBase {
                                                         for (var email : List.of("", "email")) {
                                                             for (var email2 : List.of("", "email2")) {
                                                                 for (var email3 : List.of("", "email3")) {
-                                                                    result.add(new ContactData(firstname, middlename, lastname, nickname, title, company, address, telephone, home, mobile, work, fax, email, email2, email3));
+                                                                    //result.add(new ContactData(firstname, lastname, address, email));
+                                                                    result.add(new ContactData(firstname, middlename, lastname, nickname, title, company, address, home, mobile, work, fax, email, email2, email3));
                                                                 }
                                                             }
                                                         }
@@ -41,11 +42,11 @@ public class ContactCreationTests extends TestBase {
                     }
                 }
             }
-        }
         for (int i = 0; i < 5; i++) {
-            result.add(new ContactData(randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10)));
+            //result.add(new ContactData(randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10)));
+            result.add(new ContactData(randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10)));
         }
-            return result;
+        return result;
     }
 
     @ParameterizedTest

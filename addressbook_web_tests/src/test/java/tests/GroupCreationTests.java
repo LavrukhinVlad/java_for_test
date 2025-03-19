@@ -14,7 +14,7 @@ public class GroupCreationTests extends TestBase {
         var result = new ArrayList<GroupData>();
         for (var name : List.of("", "group name")) {
             for (var header : List.of("", "group header")) {
-                for (var footer : List.of("", "group footer")){
+                for (var footer : List.of("", "group footer")) {
                     result.add(new GroupData(name, header, footer));
                 }
             }
