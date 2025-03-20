@@ -42,9 +42,9 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void modifyContact(ContactData modifiedContact) {
+    public void modifyContact(ContactData contact,ContactData modifiedContact) {
         openHomePage();
-        selectContact(null);
+        selectContact(contact);
         initContactModification();
         fillContactForm(modifiedContact);
         submitContactModification();
@@ -115,6 +115,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getList() {
+        openHomePage();
         var contacts = new ArrayList<ContactData>();
         var tds = manager.driver.findElements(By.cssSelector("td.center"));
         for (var td : tds) {
