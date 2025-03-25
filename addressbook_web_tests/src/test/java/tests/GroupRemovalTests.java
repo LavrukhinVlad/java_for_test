@@ -1,12 +1,10 @@
 package tests;
 
 import model.GroupData;
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GroupRemovalTests extends TestBase {
@@ -27,7 +25,7 @@ public class GroupRemovalTests extends TestBase {
     }
 
     @Test
-    void canRemoveAllGroupsAtOnce(){
+    void canRemoveAllGroupsAtOnce() {
         if (app.groups().getCount() == 0) {
             app.groups().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }

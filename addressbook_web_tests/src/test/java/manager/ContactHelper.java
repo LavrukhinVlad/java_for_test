@@ -1,13 +1,10 @@
 package manager;
 
 import model.ContactData;
-import model.GroupData;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.String.format;
 
 public class ContactHelper extends HelperBase {
 
@@ -42,10 +39,9 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void modifyContact(ContactData contact,ContactData modifiedContact) {
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
-        selectContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToHomePage();
@@ -88,8 +84,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), contact.email3());
     }
 
-    private void initContactModification() {
-        click(By.xpath("//img[@alt=\'Edit\']"));
+    private void initContactModification(ContactData contacts) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contacts.id())));
     }
 
     private void selectContact(ContactData contacts) {

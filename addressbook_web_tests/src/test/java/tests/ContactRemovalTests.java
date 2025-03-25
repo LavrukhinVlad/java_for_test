@@ -1,11 +1,9 @@
 import model.ContactData;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ContactRemovalTests extends TestBase {
@@ -26,7 +24,7 @@ public class ContactRemovalTests extends TestBase {
     }
 
     @Test
-    void canRemoveAllContactsAtOnce(){
+    void canRemoveAllContactsAtOnce() {
         if (app.contact().getCount() == 0) {
             app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3"));
         }
