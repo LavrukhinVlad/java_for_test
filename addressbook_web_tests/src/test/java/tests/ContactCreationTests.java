@@ -15,7 +15,7 @@ public class ContactCreationTests extends TestBase {
         for (var firstname : List.of("", "firstname")) {
             for (var lastname : List.of("", "lastname")) {
                 for (var address : List.of("", "address")) {
-                    for (var photo : List.of("", "scr/test/resources/images/avatar.png")) {
+                    for (var photo : List.of("", "photo")) {
                         result.add(new ContactData()
                                 .withFirstname(firstname)
                                 .withLastname(lastname)
@@ -31,6 +31,7 @@ public class ContactCreationTests extends TestBase {
                     .withMiddlename(randomString(i * 10))
                     .withLastname(randomString(i * 10))
                     .withNickname(randomString(i * 10))
+                    .withNickname(randomFile("scr/test/resources/images"))
                     .withTitle(randomString(i * 10))
                     .withCompany(randomString(i * 10))
                     .withAddress(randomString(i * 10))
