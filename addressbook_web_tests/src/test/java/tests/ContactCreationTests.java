@@ -15,10 +15,13 @@ public class ContactCreationTests extends TestBase {
         for (var firstname : List.of("", "firstname")) {
             for (var lastname : List.of("", "lastname")) {
                 for (var address : List.of("", "address")) {
-                    result.add(new ContactData()
-                            .withFirstname(firstname)
-                            .withLastname(lastname)
-                            .withAddress(address));
+                    for (var photo : List.of("", "scr/test/resources/images/avatar.png")) {
+                        result.add(new ContactData()
+                                .withFirstname(firstname)
+                                .withLastname(lastname)
+                                .withAddress(address)
+                                .withPhoto(photo));
+                    }
                 }
             }
         }
@@ -75,7 +78,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "")));
+                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "", "")));
         return result;
     }
 
