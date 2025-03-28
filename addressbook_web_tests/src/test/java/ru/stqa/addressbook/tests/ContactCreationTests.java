@@ -11,6 +11,8 @@ import ru.stqa.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,8 +34,19 @@ public class ContactCreationTests extends TestBase {
 //                }
 //            }
 //        }
+        //        var json = "";
+//        try (var reader = new FileReader("contacts.json");
+//            var breader = new BufferedReader(reader)
+//        ) {
+//            var line = breader.readLine();
+//            while (line != null) {
+//                json = json + line;
+//                line = breader.readLine();
+//            }
+//        }
+        var json = Files.readString(Paths.get("contacts.json"));
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<ContactData>>() {});
+        var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {});
         result.addAll(value);
         return result;
     }
