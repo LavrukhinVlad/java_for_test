@@ -1,16 +1,14 @@
 package ru.stqa.addressbook.manager;
 
-import ru.stqa.addressbook.model.GroupData;
 import org.openqa.selenium.By;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.String.format;
-
 public class GroupHelper extends HelperBase {
 
-    public  GroupHelper(ApplicationManager manager) {
+    public GroupHelper(ApplicationManager manager) {
         super(manager);
     }
 
