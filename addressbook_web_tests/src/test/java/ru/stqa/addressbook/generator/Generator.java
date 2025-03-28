@@ -59,7 +59,7 @@ public class Generator {
             result.add(new GroupData()
                     .withName(CommonFunctions.randomString(i * 10))
                     .withFooter(CommonFunctions.randomString(i * 10))
-                    .withNHeader(CommonFunctions.randomString(i * 10)));
+                    .withHeader(CommonFunctions.randomString(i * 10)));
         }
         return result;
     }
