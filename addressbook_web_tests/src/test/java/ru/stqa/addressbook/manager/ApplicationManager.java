@@ -62,7 +62,9 @@ public class ApplicationManager {
         return jdbc;
     }
 
-    public HibernateHelper hbm() {
+    public HibernateHelper
+
+    hbm() {
         if (hbm == null) {
             hbm = new HibernateHelper(this);
         }
