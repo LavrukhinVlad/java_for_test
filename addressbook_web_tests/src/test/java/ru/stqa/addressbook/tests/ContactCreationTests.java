@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -49,34 +51,28 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
+    public static List<ContactData> singRandomContact() {
+        return List.of(new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(20))
+                .withAddress(CommonFunctions.randomString(30)));
+    }
+
     @ParameterizedTest
-    @MethodSource("contactProvider")
-    public void CanCreateMultipleContacts(ContactData contact) {
-        var oldContacts = app.contact().getList();
+    @MethodSource("singRandomContact")
+    public void CanCreateContact(ContactData contact) {
+        var oldContacts = app.hbm().getContactList();
         app.contact().createContact(contact);
-        var newContacts = app.contact().getList();
-        Comparator<ContactData> compareBuId = (o1, o2) -> {
+        var newContacts = app.hbm().getContactList();
+        Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
-        newContacts.sort(compareBuId);
+        newContacts.sort(compareById);
+        var maxId = newContacts.get(newContacts.size() - 1).id();
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id())
-                .withFirstname("")
-                .withMiddlename("")
-                .withLastname("")
-                .withNickname("")
-                .withTitle("")
-                .withCompany("")
-                .withAddress("")
-                .withHome("")
-                .withMobile("")
-                .withWork("")
-                .withFax("")
-                .withEmail("")
-                .withEmail2("")
-                .withEmail3(""));
-        expectedList.sort(compareBuId);
+        expectedList.add(contact.withId(maxId));
+        expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
 
