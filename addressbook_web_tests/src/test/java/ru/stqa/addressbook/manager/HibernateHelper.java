@@ -20,9 +20,9 @@ public class HibernateHelper extends HelperBase {
         sessionFactory = new Configuration()
         .addAnnotatedClass(ContactRecord.class)
         .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.JAKARTA_JDBC_URL, "jdbc:msql://localhost/addresbook")
-                .setProperty(AvailableSettings.JAKARTA_JDBC_USER, "root")
-                .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, "")
+                .setProperty(AvailableSettings.URL, "jdbc:msql://localhost/addresbook")
+                .setProperty(AvailableSettings.USER, "root")
+                .setProperty(AvailableSettings.PASS, "")
                 .buildSessionFactory();
     }
 

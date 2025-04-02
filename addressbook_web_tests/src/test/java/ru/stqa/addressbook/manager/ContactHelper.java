@@ -116,9 +116,9 @@ public class ContactHelper extends HelperBase {
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.cssSelector("tr.entry"));
         for (var tr : trs) {
-            var firstname = tr.getText();
             var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
+            var firstname = checkbox.getAttribute("title");
             contacts.add(new ContactData().withId(id).withFirstname(firstname));
         }
         return contacts;
