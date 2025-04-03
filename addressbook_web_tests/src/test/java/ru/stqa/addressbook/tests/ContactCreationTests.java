@@ -3,6 +3,7 @@ package ru.stqa.addressbook.tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.addressbook.common.CommonFunctions;
@@ -15,6 +16,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import static ru.stqa.addressbook.common.CommonFunctions.randomFile;
 
 public class ContactCreationTests extends TestBase {
 
@@ -89,5 +92,22 @@ public class ContactCreationTests extends TestBase {
         app.contact().createContact(contact);
         var newContacts = app.contact().getList();
         Assertions.assertEquals(newContacts, oldContacts);
+    }
+
+    @Test
+    void canCreateContactInGroup() {
+    var contact = new ContactData()
+            .withFirstname(CommonFunctions.randomString(10))
+            .withLastname(CommonFunctions.randomString(10))
+            .withPhoto(randomFile("src/test/resources/images"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+    app.contact().create(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
 }
