@@ -136,7 +136,7 @@ public class ContactHelper extends HelperBase {
                     var checkbox = tr.findElement(By.name("selected[]"));
                     var id = checkbox.getAttribute("value");
                     var firstname = checkbox.getAttribute("title");
-                    return new ContactData().withId(id).withFirstname(firstname));
+                    return new ContactData().withId(id).withFirstname(firstname);
                 })
                 .collect(Collectors.toList());
     }
