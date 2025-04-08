@@ -8,6 +8,7 @@ import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
 
@@ -129,14 +130,14 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> getList() {
         openHomePage();
-        var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.cssSelector("tr.entry"));
-        for (var tr : trs) {
-            var checkbox = tr.findElement(By.name("selected[]"));
-            var id = checkbox.getAttribute("value");
-            var firstname = checkbox.getAttribute("title");
-            contacts.add(new ContactData().withId(id).withFirstname(firstname));
-        }
-        return contacts;
+        return trs.stream()
+                .map(tr -> {
+                    var checkbox = tr.findElement(By.name("selected[]"));
+                    var id = checkbox.getAttribute("value");
+                    var firstname = checkbox.getAttribute("title");
+                    return new ContactData().withId(id).withFirstname(firstname));
+                })
+                .collect(Collectors.toList());
     }
 }
