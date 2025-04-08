@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Generator {
 
@@ -53,38 +56,34 @@ public class Generator {
         }
     }
 
-    private Object generateGroups() {
-        var result = new ArrayList<GroupData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i * 10))
-                    .withFooter(CommonFunctions.randomString(i * 10))
-                    .withHeader(CommonFunctions.randomString(i * 10)));
-        }
-        return result;
+    private Object generateData(Supplier<Object> dataSupplier) {
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
     }
 
-    private Object generateContacts() {
-        var result = new ArrayList<ContactData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new ContactData()
-                    .withFirstname(CommonFunctions.randomString(i * 10))
-                    .withMiddlename(CommonFunctions.randomString(i * 10))
-                    .withLastname(CommonFunctions.randomString(i * 10))
-                    .withNickname(CommonFunctions.randomString(i * 10))
-                   // .withNickname(CommonFunctions.randomFile("scr/test/resources/images"))
-                    .withTitle(CommonFunctions.randomString(i * 10))
-                    .withCompany(CommonFunctions.randomString(i * 10))
-                    .withAddress(CommonFunctions.randomString(i * 10))
-                    .withHome(CommonFunctions.randomString(i * 10))
-                    .withMobile(CommonFunctions.randomString(i * 10))
-                    .withWork(CommonFunctions.randomString(i * 10))
-                    .withFax(CommonFunctions.randomString(i * 10))
-                    .withEmail(CommonFunctions.randomString(i * 10))
-                    .withEmail2(CommonFunctions.randomString(i * 10))
-                    .withEmail3(CommonFunctions.randomString(i * 10)));
+    private Object generateGroups() {
+        return generateData(() -> new GroupData()
+                    .withName(CommonFunctions.randomString(10))
+                    .withFooter(CommonFunctions.randomString(10))
+                    .withHeader(CommonFunctions.randomString(10)));
         }
-        return result;
+
+    private Object generateContacts() {
+        return generateData(() -> new ContactData()
+                    .withFirstname(CommonFunctions.randomString(10))
+                    .withMiddlename(CommonFunctions.randomString(10))
+                    .withLastname(CommonFunctions.randomString(10))
+                    .withNickname(CommonFunctions.randomString(10))
+                   // .withNickname(CommonFunctions.randomFile("scr/test/resources/images"))
+                    .withTitle(CommonFunctions.randomString(10))
+                    .withCompany(CommonFunctions.randomString(10))
+                    .withAddress(CommonFunctions.randomString(10))
+                    .withHome(CommonFunctions.randomString(10))
+                    .withMobile(CommonFunctions.randomString(10))
+                    .withWork(CommonFunctions.randomString(10))
+                    .withFax(CommonFunctions.randomString(10))
+                    .withEmail(CommonFunctions.randomString(10))
+                    .withEmail2(CommonFunctions.randomString(10))
+                    .withEmail3(CommonFunctions.randomString(10)));
     }
 
     private void save(Object data) throws IOException {

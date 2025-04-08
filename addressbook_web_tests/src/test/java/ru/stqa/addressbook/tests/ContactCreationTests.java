@@ -16,6 +16,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static ru.stqa.addressbook.common.CommonFunctions.randomFile;
 
@@ -54,15 +56,16 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
-    public static List<ContactData> singRandomContact() {
-        return List.of(new ContactData()
+    public static Stream<ContactData> singleRandomContact() {
+        Supplier<ContactData> randomContact = () -> new ContactData()
                 .withFirstname(CommonFunctions.randomString(10))
                 .withLastname(CommonFunctions.randomString(20))
-                .withAddress(CommonFunctions.randomString(30)));
+                .withAddress(CommonFunctions.randomString(30));
+        return Stream.generate(randomContact).limit(3);
     }
 
     @ParameterizedTest
-    @MethodSource("singRandomContact")
+    @MethodSource("singleRandomContact")
     public void CanCreateContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
         app.contact().createContact(contact);
