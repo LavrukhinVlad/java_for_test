@@ -140,4 +140,9 @@ public class ContactHelper extends HelperBase {
                 })
                 .collect(Collectors.toList());
     }
+
+    public String getPhones(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
+    }
 }
