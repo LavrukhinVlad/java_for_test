@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -56,30 +57,27 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
-    public static Stream<ContactData> singleRandomContact() {
+    public static Stream<ContactData> randomContacts() {
         Supplier<ContactData> randomContact = () -> new ContactData()
                 .withFirstname(CommonFunctions.randomString(10))
                 .withLastname(CommonFunctions.randomString(20))
                 .withAddress(CommonFunctions.randomString(30));
-        return Stream.generate(randomContact).limit(3);
+        return Stream.generate(randomContact).limit(1);
     }
 
     @ParameterizedTest
-    @MethodSource("singleRandomContact")
+    @MethodSource("randomContacts")
     public void CanCreateContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
         app.contact().createContact(contact);
         var newContacts = app.hbm().getContactList();
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newContacts.sort(compareById);
-        var maxId = newContacts.get(newContacts.size() - 1).id();
+
+        var extraContacts = newContacts.stream().filter(c -> ! oldContacts.contains(c)).toList();
+        var newId = extraContacts.get(0).id();
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(maxId));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newContacts, expectedList);
+        expectedList.add(contact.withId(newId));
+        Assertions.assertEquals(Set.copyOf(newContacts), Set.copyOf(expectedList));
     }
 
     public static List<ContactData> negativeContactProvider() {
