@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -82,7 +81,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "", "")));
+                new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")));
         return result;
     }
 
