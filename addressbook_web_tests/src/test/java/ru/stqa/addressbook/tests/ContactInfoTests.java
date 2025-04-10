@@ -13,7 +13,7 @@ public class ContactInfoTests extends TestBase {
     void testPhones() {
         var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "phone2", "address2"));
         }
         var contact = contacts.get(0);
         var phones = app.contact().getPhones(contact);
@@ -24,10 +24,25 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
+    void testPhones2() {
+        var contacts = app.hbm().getContactList();
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "phone2", "address2"));
+        }
+        var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
+                Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
+                .filter(s -> s != null && ! "".equals(s))
+                .collect(Collectors.joining("\n"))
+        ));
+        var phones = app.contact().getPhones();
+        Assertions.assertEquals(expected, phones);
+    }
+
+    @Test
     void testAddress() {
         var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "phone2", "address2"));
         }
         var contact = contacts.get(0);
         var address = app.contact().getAddress(contact);
@@ -41,7 +56,7 @@ public class ContactInfoTests extends TestBase {
     void testEmails() {
         var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "phone2", "address2"));
         }
         var contact = contacts.get(0);
         var emails = app.contact().getEmails(contact);
