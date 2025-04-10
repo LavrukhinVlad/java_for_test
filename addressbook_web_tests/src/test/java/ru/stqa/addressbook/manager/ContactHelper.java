@@ -130,17 +130,28 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public List<ContactData> getList() {
-        openHomePage();
-        var trs = manager.driver.findElements(By.cssSelector("tr.entry"));
-        return trs.stream()
-                .map(tr -> {
-                    var checkbox = tr.findElement(By.name("selected[]"));
-                    var id = checkbox.getAttribute("value");
-                    var firstname = checkbox.getAttribute("title");
-                    return new ContactData().withId(id).withFirstname(firstname);
-                })
-                .collect(Collectors.toList());
+//    public List<ContactData> getList() {
+//        openHomePage();
+//        var trs = manager.driver.findElements(By.cssSelector("tr.entry"));
+//        return trs.stream()
+//                .map(tr -> {
+//                    var checkbox = tr.findElement(By.name("selected[]"));
+//                    var id = checkbox.getAttribute("value");
+//                    var firstname = checkbox.getAttribute("title");
+//                    return new ContactData().withId(id).withFirstname(firstname);
+//                })
+//                .collect(Collectors.toList());
+//    }
+
+    public Map<String, String> getList() {
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var firstname = row.findElements(By.tagName("td")).get(2).getText();
+            result.put(id, firstname);
+        }
+        return result;
     }
 
     public String getPhones(ContactData contact) {
