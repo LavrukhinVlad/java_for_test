@@ -4,6 +4,7 @@ import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,5 +26,28 @@ public class ContactModificationTests extends TestBase {
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testData.withId(oldContacts.get(index).id()));
         Assertions.assertEquals(Set.copyOf(newContacts), Set.copyOf(expectedList));
+    }
+
+    @Test
+    void canAddContactInGroup() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
+        }
+        var oldContacts = app.hbm().getContactList();
+        var rnd = new Random();
+        var index = rnd.nextInt(oldContacts.size());
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contact().addContact(oldContacts.get(index), group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+//        var testData = new ContactData().group;
+//        app.contact().addContact(oldContacts.get(index), testData);
+//        var newContacts = app.hbm().getContactList();
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add();
+        Assertions.assertEquals(Set.copyOf(newRelated), Set.copyOf(expectedList));
     }
 }
