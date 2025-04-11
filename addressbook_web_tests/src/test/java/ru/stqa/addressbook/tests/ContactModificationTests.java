@@ -43,11 +43,8 @@ public class ContactModificationTests extends TestBase {
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.contact().addContact(oldContacts.get(index), group);
         var newRelated = app.hbm().getContactsInGroup(group);
-//        var testData = new ContactData().group;
-//        app.contact().addContact(oldContacts.get(index), testData);
-//        var newContacts = app.hbm().getContactList();
-        var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add();
-        Assertions.assertEquals(Set.copyOf(newRelated), Set.copyOf(expectedList));
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(oldContacts.get(index));
+        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newRelated));
     }
 }
