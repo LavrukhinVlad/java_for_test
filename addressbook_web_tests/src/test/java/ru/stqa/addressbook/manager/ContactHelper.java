@@ -58,12 +58,40 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void removeContactInGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectGroups(group);
+        selectContact(contact);
+        removeSelectedContacts();
+        returnToHomePage();
+    }
+
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
         initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToHomePage();
+    }
+
+    public void addContact(ContactData contact, GroupData group) {
+        openHomePage();
+        selectContact(contact);
+        selectAddGroup(group);
+        submitAddContact();
+        returnToHomePage();
+    }
+
+    private void selectAddGroup(GroupData group) {
+        new Select((WebElement) manager.driver.findElements(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void selectGroups(GroupData group) {
+        new Select((WebElement) manager.driver.findElements(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void submitAddContact() {
+        click(By.xpath("(//input[@name=\'submit\'])[2]"));
     }
 
     private void submitContactCreation() {
