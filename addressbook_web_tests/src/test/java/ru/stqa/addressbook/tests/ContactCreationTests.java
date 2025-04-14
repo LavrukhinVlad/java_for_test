@@ -71,7 +71,7 @@ public class ContactCreationTests extends TestBase {
         app.contact().createContact(contact);
         var newContacts = app.hbm().getContactList();
 
-        var extraContacts = newContacts.stream().filter(c -> ! oldContacts.contains(c)).toList();
+        var extraContacts = newContacts.stream().filter(c -> !oldContacts.contains(c)).toList();
         var newId = extraContacts.get(0).id();
 
         var expectedList = new ArrayList<>(oldContacts);
@@ -96,10 +96,10 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     void canCreateContactInGroup() {
-    var contact = new ContactData()
-            .withFirstname(CommonFunctions.randomString(10))
-            .withLastname(CommonFunctions.randomString(10))
-            .withPhoto(randomFile("src/test/resources/images"));
+        var contact = new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/images"));
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }

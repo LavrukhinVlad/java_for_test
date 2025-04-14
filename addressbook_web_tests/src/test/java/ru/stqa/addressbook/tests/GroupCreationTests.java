@@ -47,7 +47,8 @@ public class GroupCreationTests extends TestBase {
 //        return result;
         var json = Files.readString(Paths.get("groups.json"));
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {});
+        var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {
+        });
         result.addAll(value);
         return result;
     }
@@ -67,7 +68,7 @@ public class GroupCreationTests extends TestBase {
         app.groups().createGroup(group);
         var newGroups = app.hbm().getGroupList();
 
-        var extraGroups = newGroups.stream().filter(g -> ! oldGroups.contains(g)).toList();
+        var extraGroups = newGroups.stream().filter(g -> !oldGroups.contains(g)).toList();
         var newId = extraGroups.get(0).id();
 
         var expectedList = new ArrayList<>(oldGroups);

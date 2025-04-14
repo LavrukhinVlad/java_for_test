@@ -19,8 +19,8 @@ public record ContactData(String id,
                           String secondary,
                           String address2) {
 
-    public ContactData(){
-        this("", "","","","", "", "","","","","","","","","","", "", "");
+    public ContactData() {
+        this("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
     }
 
     public ContactData withId(String id) {

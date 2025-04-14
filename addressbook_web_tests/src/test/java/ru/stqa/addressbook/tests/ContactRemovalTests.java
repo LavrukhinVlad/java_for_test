@@ -1,9 +1,8 @@
 package ru.stqa.addressbook.tests;
 
-import org.junit.platform.commons.util.CollectionUtils;
-import ru.stqa.addressbook.model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
