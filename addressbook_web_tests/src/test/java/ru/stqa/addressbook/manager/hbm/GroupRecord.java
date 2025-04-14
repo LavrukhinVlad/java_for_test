@@ -23,12 +23,9 @@ public class GroupRecord {
 
     @ManyToMany
     @JoinTable(name = "address_in_groups",
-            joinColumns = @JoinColumn(name= "group_id"),
+            joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "id"))
     public List<ContactRecord> contacts;
-
-    public GroupRecord() {
-    }
 
     public GroupRecord(int id, String name, String header, String footer) {
         this.id = id;

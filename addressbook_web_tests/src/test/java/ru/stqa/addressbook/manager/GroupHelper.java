@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,11 +77,6 @@ public class GroupHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value='%s']", group.id())));
     }
 
-    public int getCount() {
-        openGroupsPage();
-        return manager.driver.findElements(By.name("selected[]")).size();
-    }
-
     public void removeAllGroups() {
         openGroupsPage();
         selectAllGroups();
@@ -104,7 +98,7 @@ public class GroupHelper extends HelperBase {
                     var checkbox = span.findElement(By.name("selected[]"));
                     var id = checkbox.getAttribute("value");
                     return new GroupData().withId(id).withName(name);
-            })
+                })
                 .collect(Collectors.toList());
     }
 }

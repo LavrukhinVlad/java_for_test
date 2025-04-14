@@ -13,7 +13,6 @@ import ru.stqa.addressbook.model.GroupData;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -62,28 +61,27 @@ public class Generator {
 
     private Object generateGroups() {
         return generateData(() -> new GroupData()
-                    .withName(CommonFunctions.randomString(10))
-                    .withFooter(CommonFunctions.randomString(10))
-                    .withHeader(CommonFunctions.randomString(10)));
-        }
+                .withName(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10)));
+    }
 
     private Object generateContacts() {
         return generateData(() -> new ContactData()
-                    .withFirstname(CommonFunctions.randomString(10))
-                    .withMiddlename(CommonFunctions.randomString(10))
-                    .withLastname(CommonFunctions.randomString(10))
-                    .withNickname(CommonFunctions.randomString(10))
-                   // .withNickname(CommonFunctions.randomFile("scr/test/resources/images"))
-                    .withTitle(CommonFunctions.randomString(10))
-                    .withCompany(CommonFunctions.randomString(10))
-                    .withAddress(CommonFunctions.randomString(10))
-                    .withHome(CommonFunctions.randomString(10))
-                    .withMobile(CommonFunctions.randomString(10))
-                    .withWork(CommonFunctions.randomString(10))
-                    .withFax(CommonFunctions.randomString(10))
-                    .withEmail(CommonFunctions.randomString(10))
-                    .withEmail2(CommonFunctions.randomString(10))
-                    .withEmail3(CommonFunctions.randomString(10)));
+                .withFirstname(CommonFunctions.randomString(10))
+                .withMiddlename(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withNickname(CommonFunctions.randomString(10))
+                .withTitle(CommonFunctions.randomString(10))
+                .withCompany(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withHome(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withWork(CommonFunctions.randomString(10))
+                .withFax(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10))
+                .withEmail2(CommonFunctions.randomString(10))
+                .withEmail3(CommonFunctions.randomString(10)));
     }
 
     private void save(Object data) throws IOException {
