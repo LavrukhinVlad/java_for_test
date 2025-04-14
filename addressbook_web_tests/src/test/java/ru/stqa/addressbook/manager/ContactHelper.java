@@ -1,16 +1,14 @@
 package ru.stqa.addressbook.manager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.addressbook.model.ContactData;
-import org.openqa.selenium.By;
 import ru.stqa.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
 
@@ -140,11 +138,6 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value='%s']", contacts.id())));
     }
 
-    public int getCount() {
-        openHomePage();
-        return manager.driver.findElements(By.name("selected[]")).size();
-    }
-
     public void removeAllContacts() {
         openHomePage();
         selectAllContacts();
@@ -157,19 +150,6 @@ public class ContactHelper extends HelperBase {
             checkbox.click();
         }
     }
-
-//    public List<ContactData> getList() {
-//        openHomePage();
-//        var trs = manager.driver.findElements(By.cssSelector("tr.entry"));
-//        return trs.stream()
-//                .map(tr -> {
-//                    var checkbox = tr.findElement(By.name("selected[]"));
-//                    var id = checkbox.getAttribute("value");
-//                    var firstname = checkbox.getAttribute("title");
-//                    return new ContactData().withId(id).withFirstname(firstname);
-//                })
-//                .collect(Collectors.toList());
-//    }
 
     public Map<String, String> getList() {
         var result = new HashMap<String, String>();
