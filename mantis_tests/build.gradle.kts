@@ -16,6 +16,8 @@ dependencies {
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation ("org.junit.jupiter:junit-jupiter-params:5.12.1")
     testImplementation("org.seleniumhq.selenium:selenium-java:4.29.0")
+    testImplementation("com.squareup.okhttp3:okhttp:4.11.0")
+    testImplementation("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
 }
 
 tasks.test {
