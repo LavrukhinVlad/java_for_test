@@ -18,8 +18,8 @@ public class ContactInfoTests extends TestBase {
         var contact = contacts.get(0);
         var phones = app.contact().getPhones(contact);
         var expected = Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
-                                .filter(s -> s != null && ! "".equals(s))
-                                .collect(Collectors.joining("\n"));
+                .filter(s -> s != null && !"".equals(s))
+                .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, phones);
     }
 
@@ -31,8 +31,8 @@ public class ContactInfoTests extends TestBase {
         }
         var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
                 Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
-                .filter(s -> s != null && ! "".equals(s))
-                .collect(Collectors.joining("\n"))
+                        .filter(s -> s != null && !"".equals(s))
+                        .collect(Collectors.joining("\n"))
         ));
         var phones = app.contact().getPhones();
         Assertions.assertEquals(expected, phones);
@@ -47,7 +47,7 @@ public class ContactInfoTests extends TestBase {
         var contact = contacts.get(0);
         var address = app.contact().getAddress(contact);
         var expected = Stream.of(contact.address(), contact.address2())
-                .filter(s -> s != null && ! "".equals(s))
+                .filter(s -> s != null && !"".equals(s))
                 .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, address);
     }
@@ -61,7 +61,7 @@ public class ContactInfoTests extends TestBase {
         var contact = contacts.get(0);
         var emails = app.contact().getEmails(contact);
         var expected = Stream.of(contact.email(), contact.email2(), contact.email3())
-                .filter(s -> s != null && ! "".equals(s))
+                .filter(s -> s != null && !"".equals(s))
                 .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, emails);
     }
