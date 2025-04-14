@@ -18,10 +18,10 @@ public class ApplicationManager {
 
     private Properties properties;
 
-   public void init(String browser, Properties properties) {
-       this.properties = properties;
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
         if (driver == null) {
-            if("chrome".equals(browser)){
+            if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
             } else if ("edge".equals(browser)) {
                 driver = new EdgeDriver();
@@ -35,10 +35,10 @@ public class ApplicationManager {
     }
 
     public LoginHelper session() {
-       if (session == null) {
-           session = new LoginHelper(this);
-       }
-       return session;
+        if (session == null) {
+            session = new LoginHelper(this);
+        }
+        return session;
     }
 
     public GroupHelper groups() {
@@ -71,7 +71,7 @@ public class ApplicationManager {
         return hbm;
     }
 
-     protected boolean isElementPresent(By locator) {
+    protected boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;

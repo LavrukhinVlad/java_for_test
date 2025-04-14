@@ -22,9 +22,6 @@ public class ContactRecord {
     public String email2;
     public String email3;
 
-    public ContactRecord() {
-    }
-
     public ContactRecord(int id, String firstname, String lastname, String address) {
         this.id = id;
         this.firstname = firstname;
