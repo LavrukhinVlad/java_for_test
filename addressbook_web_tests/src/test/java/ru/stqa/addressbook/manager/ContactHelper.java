@@ -188,4 +188,13 @@ public class ContactHelper extends HelperBase {
         }
         return result;
     }
+
+    public ContactData searchContactForAddInGroup(List<ContactData> oldContacts, List<ContactData> oldRelated) {
+        for (ContactData contact : oldContacts) {
+            if (!oldRelated.contains(contact)) {
+                return contact;
+            }
+        }
+        return  null;
+    }
 }
