@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,13 +152,13 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public Map<String, String> getList() {
-        var result = new HashMap<String, String>();
+    public List<ContactData> getList() {
+        var result = new ArrayList<ContactData>();
         List<WebElement> rows = manager.driver.findElements(By.name("entry"));
         for (WebElement row : rows) {
             var id = row.findElement(By.tagName("input")).getAttribute("id");
             var firstname = row.findElements(By.tagName("td")).get(2).getText();
-            result.put(id, firstname);
+            result.add(new ContactData().withId(id).withFirstname(firstname));
         }
         return result;
     }
