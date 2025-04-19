@@ -34,17 +34,21 @@ public class ContactModificationTests extends TestBase {
             app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
-        var rnd = new Random();
-        var index = rnd.nextInt(oldContacts.size());
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
         var group = app.hbm().getGroupList().get(0);
         var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contact().addContact(oldContacts.get(index), group);
+        ContactData contactForAddInGroup = app.contact().searchContactForAddInGroup(oldContacts, oldRelated);
+        if (contactForAddInGroup == null) {
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "", "title", "company", "address", "home", "mobile", "work", "fax", "email", "email2", "email3", "", ""));
+            var newContactList = app.hbm().getContactList();
+            contactForAddInGroup = app.contact().searchContactForAddInGroup(oldContacts, oldRelated);
+        }
+        app.contact().addContact(contactForAddInGroup, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         var expectedList = new ArrayList<>(oldRelated);
-        expectedList.add(oldContacts.get(index));
+        expectedList.add(contactForAddInGroup);
         Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newRelated));
     }
 }
