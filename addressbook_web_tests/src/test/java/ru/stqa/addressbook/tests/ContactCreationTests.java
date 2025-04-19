@@ -1,7 +1,5 @@
 package ru.stqa.addressbook.tests;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,9 +8,6 @@ import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -22,39 +17,6 @@ import java.util.stream.Stream;
 import static ru.stqa.addressbook.common.CommonFunctions.randomFile;
 
 public class ContactCreationTests extends TestBase {
-
-    public static List<ContactData> contactProvider() throws IOException {
-        var result = new ArrayList<ContactData>();
-//        for (var firstname : List.of("", "firstname")) {
-//            for (var lastname : List.of("", "lastname")) {
-//                for (var address : List.of("", "address")) {
-//                    for (var photo : List.of("", "photo")) {
-//                        result.add(new ContactData()
-//                                .withFirstname(firstname)
-//                                .withLastname(lastname)
-//                                .withAddress(address)
-//                                .withPhoto(photo));
-//                    }
-//                }
-//            }
-//        }
-        //        var json = "";
-//        try (var reader = new FileReader("contacts.json");
-//            var breader = new BufferedReader(reader)
-//        ) {
-//            var line = breader.readLine();
-//            while (line != null) {
-//                json = json + line;
-//                line = breader.readLine();
-//            }
-//        }
-        var json = Files.readString(Paths.get("contacts.json"));
-        ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {
-        });
-        result.addAll(value);
-        return result;
-    }
 
     public static Stream<ContactData> randomContacts() {
         Supplier<ContactData> randomContact = () -> new ContactData()
@@ -80,7 +42,7 @@ public class ContactCreationTests extends TestBase {
     }
 
     public static List<ContactData> negativeContactProvider() {
-        var result = new ArrayList<ContactData>(List.of(
+        var result = new ArrayList<>(List.of(
                 new ContactData("", "firstname'", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")));
         return result;
     }
