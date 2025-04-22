@@ -27,7 +27,7 @@ public class UserHelper extends HelperBase {
         click(By.xpath(".//a[contains(text(),'Signup for a new account')]"));
     }
 
-    public void editAccount(String url, String username, String password) {
+    public void finishCreation(String url, String username, String password) {
         clickLink(url);
         fillEditAccountForm(username, password);
         submitUpdate();

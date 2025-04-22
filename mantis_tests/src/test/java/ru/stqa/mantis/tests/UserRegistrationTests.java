@@ -31,7 +31,7 @@ public class UserRegistrationTests extends TestBase {
         System.out.println("url " + url);
 
         // проходим по ссылке и завершаем регистрацию (браузер)
-        app.user().editAccount((String) url, username, password);
+        app.user().finishCreation((String) url, username, password);
         app.http().login(username, password);
 
         // проверяем, что пользователь может залогиниться (HttpSessionHelper)
