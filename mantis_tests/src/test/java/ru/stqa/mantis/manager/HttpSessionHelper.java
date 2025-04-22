@@ -5,7 +5,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.CookieManager;
 
-public class HttpSessionHelper {
+public class HttpSessionHelper extends HelperBase {
 
     OkHttpClient client;
 
@@ -42,5 +42,11 @@ public class HttpSessionHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void signUp() {
+        Request request = new Request.Builder()
+                .url(String.format("%s/login.php", manager.property("web.baseUrl")))
+                .build();
     }
 }

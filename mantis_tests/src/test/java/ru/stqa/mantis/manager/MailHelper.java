@@ -4,11 +4,11 @@ import jakarta.mail.*;
 import ru.stqa.mantis.model.MailMessage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class MailHelper extends HelperBase {
 
@@ -23,7 +23,7 @@ public class MailHelper extends HelperBase {
                 var inbox = getInbox(username, password);
                 inbox.open(Folder.READ_ONLY);
                 var messages = inbox.getMessages();
-                var result = Array.stream(messages)
+                var result = Arrays.stream(messages)
                         .map(m -> {
                             try {
                                 return new MailMessage()
@@ -35,8 +35,8 @@ public class MailHelper extends HelperBase {
                         })
                         .toList();
                 inbox.close();
-                inbox.getStore.close();
-                if (result.size() > 0) {
+                inbox.getStore().close();
+                if (!result.isEmpty()) {
                     return result;
                 }
             } catch (MessagingException e) {
@@ -56,28 +56,38 @@ public class MailHelper extends HelperBase {
             var session = Session.getInstance(new Properties());
             Store store = session.getStore("pop3");
             store.connect("localhost", username, password);
-            var inbox = store.getFolder("INBOX");
-            return inbox;
+            return store.getFolder("INBOX");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        public void drain (String username, String password){
-            try {
-                var inbox = getInbox(username, password);
-                inbox.open(Folder.READ_WRITE);
-                Arrays.stream(inbox.getMessages()).forEach(m -> {
-                    try {
-                        m.setFlag(Flags.Flag.DELETED, true);
-                    } catch (MessagingException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                inbox.close();
-                inbox.getStore().close();
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
-            }
+    public void drain(String username, String password) {
+        try {
+            var inbox = getInbox(username, password);
+            inbox.open(Folder.READ_WRITE);
+            Arrays.stream(inbox.getMessages()).forEach(m -> {
+                try {
+                    m.setFlag(Flags.Flag.DELETED, true);
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            inbox.close();
+            inbox.getStore().close();
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public Object extractUrl(List<MailMessage> messages) {
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        var url = "";
+        if (matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+        }
+        return url;
     }
 }
