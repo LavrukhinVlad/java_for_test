@@ -48,8 +48,7 @@ public class UserHelper extends HelperBase {
         manager.driver().get(url);
     }
 
-    public void startCreation(String user) {
-        var email = String.format("%s@localhost", user);
+    public void startCreation(String user, String email) {
         if (!manager.session().isLoggedIn()) {
             manager.session().login(manager.property("web.username"), manager.property("web.password"));
         }
