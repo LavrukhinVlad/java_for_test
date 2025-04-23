@@ -22,15 +22,15 @@ public class UserCreationTests extends TestBase{
         user = app.developerMail().addUser();
         var email = String.format("%s@developermail.com", user.name());
 
-        //        app.user().startCreation(user);
-        //
-        //        var message = app.mail().receive(email, password, Duration.ofSeconds(10));
-        //        var url = CommonFunctions.extractUrl(message.get(0).content());
-        //
-        //        app.user().finishCreation(url, user, password);
-        //
-        //        app.http().login(user, password);
-        //        Assertions.assertTrue(app.http().isLoggedIn());
+        app.user().startCreation(user.name(), email);
+
+        var message = app.developerMail().receive(user, Duration.ofSeconds(10));
+        var url = CommonFunctions.extractUrl(message);
+
+        app.user().finishCreation(url, user.name(), password);
+
+        app.http().login(user.name(), password);
+        Assertions.assertTrue(app.http().isLoggedIn());
     }
 
     @AfterEach
