@@ -16,9 +16,8 @@ import java.time.Duration;
 
 public class DeveloperMailHelper extends HelperBase {
 
-    OkHttpClient client;
-
     public static final MediaType JSON = MediaType.get("application/json");
+    OkHttpClient client;
 
     public DeveloperMailHelper(ApplicationManager manager) {
         super(manager);

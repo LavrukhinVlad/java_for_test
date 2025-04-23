@@ -23,7 +23,7 @@ public class JamesCliHelper extends HelperBase{
         System.out.println(out);
     }
 
-    public void removeUser (String email) {
+    public void removeUser(String email) {
         CommandLine cmd = new CommandLine("java", "-cp", "\"james-server-jpa-app.lib/*\"", "org.apache.james.cli.ServerCmd", "RemoveUser", email);
         CircularOutputStream out = new CircularOutputStream();
         cmd.setWorkingDirectory(manager.property("james.workingDir"));
@@ -33,7 +33,7 @@ public class JamesCliHelper extends HelperBase{
         System.out.println("out " + out);
     }
 
-    public CircularOutputStream getListUsers () {
+    public CircularOutputStream getListUsers() {
         CommandLine cmd = new CommandLine("java", "-cp", "\"james-server-jpa-app.lib/*\"", "org.apache.james.cli.ServerCmd", "ListUsers");
         CircularOutputStream out = new CircularOutputStream();
         cmd.setWorkingDirectory(manager.property("james.workingDir"));
