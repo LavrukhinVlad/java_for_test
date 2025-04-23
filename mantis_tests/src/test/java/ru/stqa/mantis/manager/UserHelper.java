@@ -47,4 +47,16 @@ public class UserHelper extends HelperBase {
     private void clickLink(String url) {
         manager.driver().get(url);
     }
+
+    public void startCreation(String user) {
+        var email = String.format("%s@localhost", user);
+        if (!manager.session().isLoggedIn()) {
+            manager.session().login(manager.property("web.username"), manager.property("web.password"));
+        }
+        manager.driver().get(String.format("%s/manage_user_create_page.php", manager.property("web.baseUrl")));
+        type(By.name("username"), user);
+        type(By.name("realname"), user);
+        type(By.name("email"), email);
+        click(By.cssSelector("input[type='submit']"));
+    }
 }
