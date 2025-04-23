@@ -33,6 +33,12 @@ public class UserHelper extends HelperBase {
         submitUpdate();
     }
 
+    public void editAccount(String url, String username, String password) {
+        clickLink(url);
+        fillEditAccountForm(username, password);
+        submitUpdate();
+    }
+
     private void submitUpdate() {
         click(By.cssSelector("span.bigger-110"));
     }
