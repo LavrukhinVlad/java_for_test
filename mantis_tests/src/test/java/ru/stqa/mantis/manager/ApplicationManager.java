@@ -17,6 +17,7 @@ public class ApplicationManager {
     private UserHelper userHelper;
     private JamesApiHelper jamesApiHelper;
     private DeveloperMailHelper developerMailHelper;
+    private RestApiHelper restApiHelper;
 
 
     public void init(String browser, Properties properties) {
@@ -79,6 +80,13 @@ public class ApplicationManager {
             userHelper = new UserHelper(this);
         }
         return userHelper;
+    }
+
+    public RestApiHelper rest() {
+        if (restApiHelper == null) {
+            restApiHelper = new RestApiHelper(this);
+        }
+        return restApiHelper;
     }
 
     public DeveloperMailHelper developerMail() {
