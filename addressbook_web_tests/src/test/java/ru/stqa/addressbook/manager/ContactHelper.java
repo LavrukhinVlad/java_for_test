@@ -153,14 +153,22 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getList() {
-        var result = new ArrayList<ContactData>();
-        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
-        for (WebElement row : rows) {
-            var id = row.findElement(By.tagName("input")).getAttribute("id");
-            var firstname = row.findElements(By.tagName("td")).get(2).getText();
-            result.add(new ContactData().withId(id).withFirstname(firstname));
+        var contacts = new ArrayList<ContactData>();
+        var main_locators = manager.driver.findElements(By.cssSelector("tr:not(:first-child)"));
+
+        for (var locator : main_locators) {
+            var lastname = locator.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            var firstname =  locator.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var checkbox_locator = locator.findElement(By.name("selected[]"));
+            var id = checkbox_locator.getAttribute("value");
+
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstname(firstname)
+                    .withLastname(lastname));
         }
-        return result;
+
+        return contacts;
     }
 
     public String getPhones(ContactData contact) {
