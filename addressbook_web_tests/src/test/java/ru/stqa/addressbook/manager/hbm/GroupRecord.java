@@ -27,6 +27,9 @@ public class GroupRecord {
             inverseJoinColumns = @JoinColumn(name = "id"))
     public List<ContactRecord> contacts;
 
+    public GroupRecord(){
+    }
+
     public GroupRecord(int id, String name, String header, String footer) {
         this.id = id;
         this.name = name;
