@@ -4,8 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 public class ApplicationManager {
@@ -18,13 +23,24 @@ public class ApplicationManager {
 
     private Properties properties;
 
-    public void init(String browser, Properties properties) {
+    public void init(String browser, Properties properties) throws MalformedURLException {
         this.properties = properties;
         if (driver == null) {
+            var seleniumServer = properties.getProperty("seleniumServer");
             if ("chrome".equals(browser)) {
-                driver = new ChromeDriver();
+                if (seleniumServer != null){
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new ChromeOptions());
+                }
+                else {
+                    driver = new ChromeDriver();
+                }
             } else if ("edge".equals(browser)) {
-                driver = new EdgeDriver();
+                if (seleniumServer != null){
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new EdgeOptions());
+                }
+                else {
+                    driver = new EdgeDriver();
+                }
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
