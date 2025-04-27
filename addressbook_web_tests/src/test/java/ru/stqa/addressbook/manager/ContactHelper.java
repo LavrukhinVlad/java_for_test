@@ -47,7 +47,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectGroup(GroupData group) {
-        new Select((WebElement) manager.driver.findElements(By.name("new_group"))).selectByValue(group.id());
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
     public void removeContact(ContactData contact) {
@@ -82,15 +82,15 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectAddGroup(GroupData group) {
-        new Select((WebElement) manager.driver.findElements(By.name("to_group"))).selectByValue(group.id());
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
     }
 
     private void selectGroups(GroupData group) {
-        new Select((WebElement) manager.driver.findElements(By.name("group"))).selectByValue(group.id());
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
     private void submitAddContact() {
-        click(By.xpath("(//input[@name=\'submit\'])[2]"));
+        click(By.name("add"));
     }
 
     private void submitContactCreation() {
@@ -102,11 +102,11 @@ public class ContactHelper extends HelperBase {
     }
 
     private void removeSelectedContacts() {
-        click(By.name("delete"));
+        click(By.name("remove"));
     }
 
     private void returnToHomePage() {
-        click(By.linkText("home page"));
+        manager.driver.findElement(By.linkText("home")).click();
     }
 
     private void submitContactModification() {

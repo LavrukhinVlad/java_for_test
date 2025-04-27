@@ -70,6 +70,9 @@ public class ContactCreationTests extends TestBase {
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.contact().create(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+        var maxId = newRelated.get(newRelated.size() - 1).id();
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(contact.withId(maxId));
+        Assertions.assertEquals(newRelated, expectedList);
     }
 }
