@@ -15,8 +15,9 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/mantis_tests" />
-        <option name="gradleHome" value="" />
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
